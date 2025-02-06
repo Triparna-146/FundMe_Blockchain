@@ -3,15 +3,18 @@
 // set a minimum funding value in USD
 
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.24;
 
 import {PriceConverter} from "./PriceConverter.sol";
+
+error NotOwner();
 
 contract FundMe {
 
     using PriceConverter for uint256;
 
-    uint256 public minimumUSD = 1 * 1e18;
+    uint256 public constant MINIMUM_USD = 1 * 1e18;
+  
 
     address[] public funders;
     mapping (address => uint256) public addressToAmountFunded;
@@ -19,15 +22,15 @@ contract FundMe {
     function fund() public payable  {
         //Allow users to send money
         // Have a minimum limit $5
-        require(msg.value.getConversionRate() >= minimumUSD, "Didn't send enough ETH");
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "Didn't send enough ETH");
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender] +=  msg.value;
     }
 
-    address public owner;
+    address public immutable i_owner;
 
     constructor() {
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
     
 
@@ -47,8 +50,16 @@ contract FundMe {
     }
 
     modifier onlyOwner () {
-        require(msg.sender == owner, "Sender is not Owner");
+        //require(msg.sender == i_owner, "Sender is not Owner");
+        if(msg.sender != i_owner) { revert NotOwner(); }
         _;
     }
     
+    receive() external payable { 
+        fund();
+    }
+    
+    fallback() external payable { 
+        fund();
+    }
 }

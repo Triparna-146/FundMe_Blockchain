@@ -1,5 +1,5 @@
 {
-	"id": "c154bb5d0cc96e726d1aa7be7f38ade7",
+	"id": "a151efafc3288602b8e49a432180e7e6",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.26",
 	"solcLongVersion": "0.8.26+commit.8a97fa7a",
@@ -7,7 +7,7 @@
 		"language": "Solidity",
 		"sources": {
 			"Contracts/PriceConverter.sol": {
-				"content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.18;\r\n\r\nimport {AggregatorV3Interface} from \"@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol\";\r\n\r\nlibrary PriceConverter {\r\n\r\n    function getPrice () internal view returns (uint256){\r\n        //Address 0x694AA1769357215DE4FAC081bf1f309aDC325306\r\n        //ABI \r\n        AggregatorV3Interface priceFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);\r\n        (,int256 price,,,) = priceFeed.latestRoundData();\r\n        //Price of ETH in USD\r\n        return uint256(price * 1e10);\r\n    }\r\n\r\n    function getConversionRate (uint256 ethAmount) internal view returns (uint256) {\r\n        uint256 ethPrice = getPrice();\r\n        uint256 ethAmountInUSD = (ethPrice * ethAmount) / 1e18;\r\n        return ethAmountInUSD;\r\n    }\r\n}"
+				"content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.24;\r\n\r\nimport {AggregatorV3Interface} from \"@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol\";\r\n\r\nlibrary PriceConverter {\r\n\r\n    function getPrice () internal view returns (uint256){\r\n        //Address 0x694AA1769357215DE4FAC081bf1f309aDC325306\r\n        //ABI \r\n        AggregatorV3Interface priceFeed = AggregatorV3Interface(0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF);\r\n        (,int256 price,,,) = priceFeed.latestRoundData();\r\n        //Price of ETH in USD\r\n        return uint256(price * 1e10);\r\n    }\r\n\r\n    function getConversionRate (uint256 ethAmount) internal view returns (uint256) {\r\n        uint256 ethPrice = getPrice();\r\n        uint256 ethAmountInUSD = (ethPrice * ethAmount) / 1e18;\r\n        return ethAmountInUSD;\r\n    }\r\n}"
 			},
 			"@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol": {
 				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n// solhint-disable-next-line interface-starts-with-i\ninterface AggregatorV3Interface {\n  function decimals() external view returns (uint8);\n\n  function description() external view returns (string memory);\n\n  function version() external view returns (uint256);\n\n  function getRoundData(\n    uint80 _roundId\n  ) external view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\n\n  function latestRoundData()\n    external\n    view\n    returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\n}\n"
@@ -213,13 +213,13 @@
 						"version": 1
 					},
 					"evm": {
-						"assembly": "    /* \"Contracts/PriceConverter.sol\":177:821  library PriceConverter {... */\n  dataSize(sub_0)\n  dataOffset(sub_0)\n  0x0b\n  dup3\n  dup3\n  dup3\n  codecopy\n  dup1\n  mload\n  0x00\n  byte\n  0x73\n  eq\n  tag_1\n  jumpi\n  mstore(0x00, 0x4e487b7100000000000000000000000000000000000000000000000000000000)\n  mstore(0x04, 0x00)\n  revert(0x00, 0x24)\ntag_1:\n  mstore(0x00, address)\n  0x73\n  dup2\n  mstore8\n  dup3\n  dup2\n  return\nstop\n\nsub_0: assembly {\n        /* \"Contracts/PriceConverter.sol\":177:821  library PriceConverter {... */\n      eq(address, deployTimeAddress())\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa2646970667358221220ab140b313182206b7178d3d8eeddebd2ec06252d8d7e15d00625bfd6c9f6aa4664736f6c634300081a0033\n}\n",
+						"assembly": "    /* \"Contracts/PriceConverter.sol\":177:821  library PriceConverter {... */\n  dataSize(sub_0)\n  dataOffset(sub_0)\n  0x0b\n  dup3\n  dup3\n  dup3\n  codecopy\n  dup1\n  mload\n  0x00\n  byte\n  0x73\n  eq\n  tag_1\n  jumpi\n  mstore(0x00, 0x4e487b7100000000000000000000000000000000000000000000000000000000)\n  mstore(0x04, 0x00)\n  revert(0x00, 0x24)\ntag_1:\n  mstore(0x00, address)\n  0x73\n  dup2\n  mstore8\n  dup3\n  dup2\n  return\nstop\n\nsub_0: assembly {\n        /* \"Contracts/PriceConverter.sol\":177:821  library PriceConverter {... */\n      eq(address, deployTimeAddress())\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa264697066735822122030b342f17c8050724c31f53f55cb5eb7341c9dbd38a7842260d9bb06361ca46d64736f6c634300081a0033\n}\n",
 						"bytecode": {
 							"functionDebugData": {},
 							"generatedSources": [],
 							"linkReferences": {},
-							"object": "6055604b600b8282823980515f1a607314603f577f4e487b71000000000000000000000000000000000000000000000000000000005f525f60045260245ffd5b305f52607381538281f3fe730000000000000000000000000000000000000000301460806040525f80fdfea2646970667358221220ab140b313182206b7178d3d8eeddebd2ec06252d8d7e15d00625bfd6c9f6aa4664736f6c634300081a0033",
-							"opcodes": "PUSH1 0x55 PUSH1 0x4B PUSH1 0xB DUP3 DUP3 DUP3 CODECOPY DUP1 MLOAD PUSH0 BYTE PUSH1 0x73 EQ PUSH1 0x3F JUMPI PUSH32 0x4E487B7100000000000000000000000000000000000000000000000000000000 PUSH0 MSTORE PUSH0 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH0 REVERT JUMPDEST ADDRESS PUSH0 MSTORE PUSH1 0x73 DUP2 MSTORE8 DUP3 DUP2 RETURN INVALID PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAB EQ SIGNEXTEND BALANCE BALANCE DUP3 KECCAK256 PUSH12 0x7178D3D8EEDDEBD2EC06252D DUP14 PUSH31 0x15D00625BFD6C9F6AA4664736F6C634300081A003300000000000000000000 ",
+							"object": "6055604b600b8282823980515f1a607314603f577f4e487b71000000000000000000000000000000000000000000000000000000005f525f60045260245ffd5b305f52607381538281f3fe730000000000000000000000000000000000000000301460806040525f80fdfea264697066735822122030b342f17c8050724c31f53f55cb5eb7341c9dbd38a7842260d9bb06361ca46d64736f6c634300081a0033",
+							"opcodes": "PUSH1 0x55 PUSH1 0x4B PUSH1 0xB DUP3 DUP3 DUP3 CODECOPY DUP1 MLOAD PUSH0 BYTE PUSH1 0x73 EQ PUSH1 0x3F JUMPI PUSH32 0x4E487B7100000000000000000000000000000000000000000000000000000000 PUSH0 MSTORE PUSH0 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH0 REVERT JUMPDEST ADDRESS PUSH0 MSTORE PUSH1 0x73 DUP2 MSTORE8 DUP3 DUP2 RETURN INVALID PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 ADDRESS 0xB3 TIMESTAMP CALL PUSH29 0x8050724C31F53F55CB5EB7341C9DBD38A7842260D9BB06361CA46D6473 PUSH16 0x6C634300081A00330000000000000000 ",
 							"sourceMap": "177:644:1:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
 						},
 						"deployedBytecode": {
@@ -227,8 +227,8 @@
 							"generatedSources": [],
 							"immutableReferences": {},
 							"linkReferences": {},
-							"object": "730000000000000000000000000000000000000000301460806040525f80fdfea2646970667358221220ab140b313182206b7178d3d8eeddebd2ec06252d8d7e15d00625bfd6c9f6aa4664736f6c634300081a0033",
-							"opcodes": "PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAB EQ SIGNEXTEND BALANCE BALANCE DUP3 KECCAK256 PUSH12 0x7178D3D8EEDDEBD2EC06252D DUP14 PUSH31 0x15D00625BFD6C9F6AA4664736F6C634300081A003300000000000000000000 ",
+							"object": "730000000000000000000000000000000000000000301460806040525f80fdfea264697066735822122030b342f17c8050724c31f53f55cb5eb7341c9dbd38a7842260d9bb06361ca46d64736f6c634300081a0033",
+							"opcodes": "PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 ADDRESS 0xB3 TIMESTAMP CALL PUSH29 0x8050724C31F53F55CB5EB7341C9DBD38A7842260D9BB06361CA46D6473 PUSH16 0x6C634300081A00330000000000000000 ",
 							"sourceMap": "177:644:1:-:0;;;;;;;;"
 						},
 						"gasEstimates": {
@@ -472,7 +472,7 @@
 							],
 							".data": {
 								"0": {
-									".auxdata": "a2646970667358221220ab140b313182206b7178d3d8eeddebd2ec06252d8d7e15d00625bfd6c9f6aa4664736f6c634300081a0033",
+									".auxdata": "a264697066735822122030b342f17c8050724c31f53f55cb5eb7341c9dbd38a7842260d9bb06361ca46d64736f6c634300081a0033",
 									".code": [
 										{
 											"begin": 177,
@@ -542,7 +542,7 @@
 						},
 						"methodIdentifiers": {}
 					},
-					"metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"Contracts/PriceConverter.sol\":\"PriceConverter\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol\":{\"keccak256\":\"0x257a8d28fa83d3d942547c8e129ef465e4b5f3f31171e7be4739a4c98da6b4f0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6d39e11b1dc7b9b8ccdabbc9be442ab7cda4a81c748f57e316dcb1bcb4a28bf9\",\"dweb:/ipfs/QmaG6vz6W6iEUBsbHSBob5mdcitYxWjoygxREHpsJHfWrS\"]},\"Contracts/PriceConverter.sol\":{\"keccak256\":\"0x16f5b9e3b7bb42e25829b8593064522b9916d7e4311b92608bc5aeca0b34864a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://068a2240a22927d6d141fcba3c6d24d1cbcf3c7826145af56523b69b7d588937\",\"dweb:/ipfs/QmZ4cZmLkSuFsWxnqhmLb9d6LCohrNCdTwyUVEiXxgYbPR\"]}},\"version\":1}",
+					"metadata": "{\"compiler\":{\"version\":\"0.8.26+commit.8a97fa7a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"Contracts/PriceConverter.sol\":\"PriceConverter\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol\":{\"keccak256\":\"0x257a8d28fa83d3d942547c8e129ef465e4b5f3f31171e7be4739a4c98da6b4f0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6d39e11b1dc7b9b8ccdabbc9be442ab7cda4a81c748f57e316dcb1bcb4a28bf9\",\"dweb:/ipfs/QmaG6vz6W6iEUBsbHSBob5mdcitYxWjoygxREHpsJHfWrS\"]},\"Contracts/PriceConverter.sol\":{\"keccak256\":\"0x4e9d331d8f2ea30ce416d542e958a2c3897e7f74bf414bc9a583ea64a6bba12f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8c7168c73e9fbf653159f1d22d132ef811c6e5fd34dcd9c50105978d5e62ebb7\",\"dweb:/ipfs/QmdDEi1UBGErJhszqbGEYAdgdRrvjDqJJmbKjMie1WnsQh\"]}},\"version\":1}",
 					"storageLayout": {
 						"storage": [],
 						"types": null
@@ -1145,7 +1145,7 @@
 								"solidity",
 								"^",
 								"0.8",
-								".18"
+								".24"
 							],
 							"nodeType": "PragmaDirective",
 							"src": "33:24:1"
@@ -1243,7 +1243,7 @@
 												"initialValue": {
 													"arguments": [
 														{
-															"hexValue": "307836393441413137363933353732313544453446414330383162663166333039614443333235333036",
+															"hexValue": "307866456566463763336642353764313843354336436464373165343544324430623446393337376246",
 															"id": 58,
 															"isConstant": false,
 															"isLValue": false,
@@ -1256,7 +1256,7 @@
 																"typeIdentifier": "t_address",
 																"typeString": "address"
 															},
-															"value": "0x694AA1769357215DE4FAC081bf1f309aDC325306"
+															"value": "0xfEefF7c3fB57d18C5C6Cdd71e45D2D0b4F9377bF"
 														}
 													],
 													"expression": {
